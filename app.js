@@ -10,7 +10,7 @@ const {dialogflow} = require('actions-on-google');
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 const app = dialogflow();
 
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+app.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response });
   console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
@@ -39,7 +39,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 });
 
 const exapp = express().use(bodyParser.json);
-exapp.post('/fulfillment',app.dialogflowFirebaseFulfillment());
+exapp.post('/fulfillment',app.dialogflowFirebaseFulfillment);
 
 var listener = app.listen(process.env.PORT,process.env.IP,function(){
 // var listener = app.listen(4000,process.env.IP,function(){
