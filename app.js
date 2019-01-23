@@ -69,7 +69,7 @@ app.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response
   agent.handleRequest(intentMap);
 });
 
-const exapp = express().use(bodyParser.json);
+const exapp = express().use(bodyParser.json());
 exapp.post('/fulfillment',app.dialogflowFirebaseFulfillment);
 
 var listener = exapp.listen(process.env.PORT,process.env.IP,function(){
