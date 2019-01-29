@@ -93,7 +93,17 @@ function testImage(agent) {
           tones.sort(function (a, b) { return b.score - a.score });
           tones.forEach(element => {
             if (element.score > 0.5){
-              str += element.tone_name;
+              //str += element.tone_name;
+              switch(String(tone.tone_name,toUpperCase())){
+                case "JOY":
+                  str += "happy";
+                  break;
+                case "SADNESS":
+                  str += "sad"
+                  break;
+                default:
+                  str += `like you feel ${element.tone_name}`;
+              }
             };
           });
           str +=".";
