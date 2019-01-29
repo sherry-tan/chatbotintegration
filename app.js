@@ -9,6 +9,7 @@ const {WebhookClient,Card, Suggestion} = require('dialogflow-fulfillment');
 const {dialogflow} = require('actions-on-google');
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 const app = dialogflow();
+var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
 
 app.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response });
