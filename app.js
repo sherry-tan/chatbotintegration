@@ -27,7 +27,7 @@ app.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response
 function testImage(agent) {
     var visualRecognition = new VisualRecognitionV3({
       version: '2018-03-19',
-      iam_apikey: 'Ae8wfpNwYI-OU88zzvem1L7iH0LzfUxdK1SElGV5VZQa'
+      iam_apikey: 'T66sxixnkf5mul0e7TBxySr0-KBfiKYci9mAGxseDL7G'
     });
 
     var params = {
