@@ -88,13 +88,14 @@ function testImage(agent) {
         }
         else {
           let result = JSON.stringify(response, null, 2);
-          var str = "";
+          var str = "You sound ";
           var tones = response.document_tone.tones;
           tones.sort(function (a, b) { return b.score - a.score });
           tones.forEach(element => {
-            if (element.score > 0.7 && element.type_hierarchy != null)
-              str += element.tone_name + " :" + element.score + "\n";
-          });
+            if (element.score > 0.5){
+              str += element.tone_name;
+            });
+          str +="."
           agent.add(str);
           
           resolve("Good");
