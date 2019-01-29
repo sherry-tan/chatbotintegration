@@ -10,6 +10,7 @@ const {dialogflow} = require('actions-on-google');
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 const app = dialogflow();
 var VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
+var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
 app.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response });
@@ -65,13 +66,49 @@ function testImage(agent) {
     });
   }
 
+  function testTone(agent) {
+    var toneAnalyzer = new ToneAnalyzerV3({
+      version: '2017-09-21',
+      iam_apikey: 'mtfWF2RxjGZ_VZWBv8dVfGVHuwjy4THN5hA7oSwFti_L',
+      url: 'https://gateway.watsonplatform.net/tone-analyzer/api'
+    });
+
+
+    var toneParams = {
+      tone_input: { 'text': agent.parameters.myText },
+      content_type: 'application/json'
+    };
+
+    return new Promise((resolve, reject) => {
+      toneAnalyzer.tone(toneParams, function (err, response) {
+        if (err) {
+          console.log(err);
+          agent.add("There is something wrong with the image link");
+          reject("Error");
+        }
+        else {
+          let result = JSON.stringify(response, null, 2);
+          // var str = "";
+          // var categories = response.document_tone.tones[0].classes;
+          // categories.sort(function (a, b) { return b.score - a.score });
+          // categories.forEach(element => {
+          //   if (element.score > 0.8 && element.type_hierarchy != null)
+          //     str += element.class + " :" + element.score + "\n";
+          // });
+          agent.add(result);
+          
+          resolve("Good");
+        }
+      });
+    });
+  }
 
   // Run the proper function handler based on the matched Dialogflow intent name
   let intentMap = new Map();
   intentMap.set('Default Welcome Intent', welcome);
   intentMap.set('Default Fallback Intent', fallback);
   intentMap.set('getImageDetailIntent', testImage);
-  
+  intentMap.set('getToneIntent', testTone);
   agent.handleRequest(intentMap);
 });
 
