@@ -97,7 +97,7 @@ function testImage(agent) {
               switch(String(element.tone_name.toUpperCase())){
                 case "JOY":
                   str += "happy.";
-                  params.url = 'https://upload.wikimedia.org/wikipedia/en/d/df/Smiley_face_2.jpg';
+                  url = 'https://upload.wikimedia.org/wikipedia/en/d/df/Smiley_face_2.jpg';
                   break;
                 case "SADNESS":
                   str += "sad."
@@ -111,7 +111,7 @@ function testImage(agent) {
           //agent.add(str);
           agent.add(new Card({
             title: `Image Details`,
-            imageUrl: params.url,
+            imageUrl: url,
             text: str,
           })
           );
