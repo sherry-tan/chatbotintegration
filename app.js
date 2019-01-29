@@ -94,7 +94,7 @@ function testImage(agent) {
           tones.forEach(element => {
             if (element.score > 0.5){
               //str += element.tone_name;
-              switch(String(element.tone_name,toUpperCase())){
+              switch(String(element.tone_name.toUpperCase())){
                 case "JOY":
                   str += "happy.";
                   break;
