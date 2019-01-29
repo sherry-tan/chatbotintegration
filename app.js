@@ -94,8 +94,9 @@ function testImage(agent) {
           tones.forEach(element => {
             if (element.score > 0.5){
               str += element.tone_name;
-            });
-          str +="."
+            };
+          });
+          str +=".";
           agent.add(str);
           
           resolve("Good");
